@@ -23,22 +23,22 @@ Java课程作业项目仓库
 2.在包中创建两个接口StudentManagement和TeacherManagement，分别设定博士研究生作为学生和助教的两类行为标准。 
 3.并在包中实例化一个类DoctoralCandidate来实现上述两个接口。实例化一个MoneyException异常类来进行对收税金的判断。实例化主类Test_JavaProgram对用户输入进行存储和操作。  
 4.StudentManagement类中：**  
-*（a）定义常量buzhu*
-*（b）设计两个方法：缴纳学费和查询学费  *
+*(a)定义常量buzhu  
+(b)设计两个方法：缴纳学费和查询学费*  
 **5.TeacherManagement类中：** 
-*(a)定义常量sanxianyijin
-（b）设计两个方法：查询工资和发放工资  *  
+*(a)定义常量sanxianyijin  
+(b)设计两个方法：查询工资和发放工资*  
 **6.DoctoralCandidate类中：**  
-*(a)定义基本信息变量  *
-*（b）实现两个接口四个方法  *    
+*(a)定义基本信息变量  
+(b)实现两个接口四个方法*    
 **7.Test_JavaProgram类中：**  
-*(a)首先定义全局变量和录入数组
-*(b)设计三个循环：第一个循环依次录入个人信息，第二个循环判断录入工资和学费是否正确，第三个循环执行方法操作。*
-*(c)设计税收算法方法  *
-(d)设计异常抛出方法  *
+*(a)首先定义全局变量和录入数组  
+(b)设计三个循环：第一个循环依次录入个人信息，第二个循环判断录入工资和学费是否正确，第三个循环执行方法操作  
+(c)设计税收算法方法    
+(d)设计异常抛出方法*  
 **8.MoneyException类中：**  
-*(a)创建 MoneyException类为Exception类子类 * 
-*(b)创建 warnMess方法用来返回错误提示  *  
+*(a)创建 MoneyException类为Exception类子类  
+(b)创建 warnMess方法用来返回错误提示*  
 **9.在实验类中创建DoctoralCandidate的对象Doctor，创建TeacherManagement的对象tea，创建StudentManagement的对象Stu,通过接口回调对实现接口的方法进行调用**
 ## 核心方法  
 ***1.revenue税收计算方法***
@@ -116,9 +116,9 @@ public void giveSalary(double salary,double revenue) {
 	}
 ```
 ## 系统运行截图  
-***Picture1：***
+***Picture1：***  
 ![test31.png](https://i.loli.net/2020/11/08/UDcZdStBwr8eQRL.png)  
-***Picture2：***
+***Picture2：***  
 ![test32.png](https://i.loli.net/2020/11/08/4KJczYklW9nDBeH.png)  
 ## 实验感想  
 **通过本次实验，我学会了接口和方法的使用，回顾了数组的声明和使用：  
