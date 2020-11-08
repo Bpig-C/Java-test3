@@ -25,7 +25,7 @@ Java课程作业项目仓库
 4.StudentManagement类中：**  
 *(a)定义常量buzhu  
 (b)设计两个方法：缴纳学费和查询学费*  
-**5.TeacherManagement类中：** 
+**5.TeacherManagement类中：**  
 *(a)定义常量sanxianyijin  
 (b)设计两个方法：查询工资和发放工资*  
 **6.DoctoralCandidate类中：**  
@@ -44,27 +44,27 @@ Java课程作业项目仓库
 ***1.revenue税收计算方法***
 ```
 public final static double giveRevenue(double salary,double tuition) {
-		tuition=tuition/6;                                                             //平均每月学费
-		revenue=TeacherManagement.sanxianyijin+StudentManagement.buzhu-tuition; //实际税收金额
-		if(revenue<=5000.00) {                           //3%
+		tuition=tuition/6;                                                             
+		revenue=TeacherManagement.sanxianyijin+StudentManagement.buzhu-tuition; 
+		if(revenue<=5000.00) {                           
 			return revenue*0.03;
 		}
-		else if(revenue>5000.00 && revenue<=12000.00) {  //10%
+		else if(revenue>5000.00 && revenue<=12000.00) {  
 			return (revenue-5000)*0.1+1500;
 		}
-		else if(revenue>12000.00 && revenue<=25000.00) { //20%
+		else if(revenue>12000.00 && revenue<=25000.00) { 
 			return (revenue-12000)*0.2+2200;
 		}
-		else if(revenue>25000.00 && revenue<=35000.00) { //25%
+		else if(revenue>25000.00 && revenue<=35000.00) { 
 			return (revenue-25000)*0.25+4800;
 		}
-		else if(revenue>35000.00 && revenue<=55000.00) { //30%
+		else if(revenue>35000.00 && revenue<=55000.00) { 
 			return (revenue-35000)*0.3+7300;
 		}
-		else if(revenue>55000.00 && revenue<=80000.00) { //35%
+		else if(revenue>55000.00 && revenue<=80000.00) { 
 			return (revenue-55000)*0.35+13300;
 		}
-		else if(revenue>80000.00) {                      //45%
+		else if(revenue>80000.00) {                      
 			return (revenue-80000)*0.45+22050;
 		}
 		return 0;
@@ -102,7 +102,7 @@ public void searchTuition(double tuition) {
 ``` 
 ***5.工资查询方法***
 ```
-public void searchSalary(double salary,double revenue) {                       //必须在发放工资以后才能显示
+public void searchSalary(double salary,double revenue) {                       
 		System.out.println("工资："+(salary-revenue));
 		System.out.println("年实际工资："+12*(salary-revenue));
 	}
