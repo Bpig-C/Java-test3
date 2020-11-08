@@ -3,53 +3,31 @@ package interfaceApplication;
 import java.util.Scanner;
 
 public class Test_JavaProgram {
-	static int revenue;
+	static double revenue;
     static String name;     //姓名
 	static String sex;      //性别
 	static int age;         //年龄
 	static int tuition;     //每学期学费
 	static int salary;      //每月薪水
+	static int x;
 	static DoctoralCandidate[] Doctor = new  DoctoralCandidate[10];
+	static TeacherManagement[] tea= new  TeacherManagement[10];
+	static StudentManagement[] stu= new  StudentManagement[10];
 	public static void main(String[] args) {
-//**********************************************调用构造函数方法***************************************************************
-		DoctoralCandidate doc1 = new DoctoralCandidate("赵五", "男", 25, 4500, 8000);
-		//DoctoralCandidate doc2 = new DoctoralCandidate("刘一", "女", 22, 5200, 7250);
-		StudentManagement stu1 = doc1;
-		//StudentManagement stu2 = doc2;
-		TeacherManagement tea1 = doc1;
-		//TeacherManagement tea2 = doc2;
-		System.out.println("第二个");
-		try {
-			giveSalary(doc1.getSalary(),doc1.getTuition());
-			doc1.giveSalary(doc1.getSalary(),giveRevenue(doc1.getSalary(),doc1.getTuition()));
-			stu1.searchTuition();
-			tea1.searchSalary();	
-		}
-		catch(MoneyException e) {
-			System.out.println("请输入正确学费！");
-			System.out.println(e.warnMess());
-	    }
-//		System.out.println("第二个");
-//		try {
-//			giveSalary(doc2.getSalary(),doc2.getTuition());
-//			doc2.giveSalary(doc2.getSalary(),giveRevenue(doc2.getSalary(),doc2.getTuition()));
-//			stu2.searchTuition();
-//			tea2.searchSalary();	
-//		}
-//		catch(MoneyException e) {
-//			System.out.println("请输入正确学费！");
-//			System.out.println(e.warnMess());
-//	    }
-		
-//**********************************************使用数组方法***************************************************************
+		System.out.println("********研究生博士信息录入********");//8
 		System.out.println("请输入录入人数：");
 		Scanner reader0 = new Scanner(System.in);
-		int x =reader0.nextInt();
-		
+		try{
+			x =reader0.nextInt();
+		}
+        catch(Exception e){
+        	System.out.println("请输入正确格式！");
+        
+		}
 		
 		for(int i=0;i<x;) {
 			Scanner reader = new Scanner(System.in);
-			System.out.println("请依次输入姓名、性别、年龄、学期学费、月工资：");
+			System.out.println("请依次输入姓名、性别、年龄、学期学费、月工资：");			
 			Doctor[i] = new DoctoralCandidate();
 			name = reader.nextLine();
 			Doctor[i].name=name;
@@ -61,41 +39,67 @@ public class Test_JavaProgram {
 			Doctor[i].tuition=tuition;
 			salary = reader.nextInt();
 			Doctor[i].salary=salary;
-			System.out.println(Doctor[i].name+" "+Doctor[i].sex+" "+Doctor[i].age+" "+Doctor[i].tuition+" "+Doctor[i].salary);
 			i++;
-			
 		}
-		
+		System.out.println("序号  姓名  性别  年龄   学期学费   月工资");
 		for(int i=0;i<x;) {
-		System.out.println("第"+i+"个");
-		 
-		try {
-			giveSalary(Doctor[i].getSalary(),Doctor[i].getTuition());
-			Doctor[i].giveSalary(Doctor[0].getSalary(),giveRevenue(Doctor[0].getSalary(),Doctor[0].getTuition()));
-			Doctor[i].searchTuition();
-			Doctor[i].searchSalary();
+			giveRevenue(Doctor[i].salary,Doctor[i].revenue);	 
+			try {
+				giveSalary(Doctor[i].getSalary(),Doctor[i].getTuition());			
+		}
+			catch(MoneyException e) {
+				System.out.println("请输入正确学费！");
+				System.out.println(e.warnMess());
+		    }
 			
-	}
-		catch(MoneyException e) {
-			System.out.println("请输入正确学费！");
-			System.out.println(e.warnMess());
-	    }
-		i++;
+			System.out.println("  "+(i+1)+"     "+Doctor[i].name+"    "+Doctor[i].sex+"     "+Doctor[i].age+"     "+Doctor[i].tuition+"    "+Doctor[i].salary);
+			i++;
+			}
+		a:for(;;) {
+		System.out.println("/n1.工资查询并领取\n2.学费查询并缴纳\n3.退出");
+		System.out.println("请输入1~3：");
+		try{
+		Scanner reader1 = new Scanner(System.in);
+		int y =reader1.nextInt();
+		if(y==2) {
+			for(int i=0;i<x;) {
+	        	stu[i] =  Doctor[i];
+	        	stu[i].searchTuition(Doctor[i].tuition);
+				stu[i].payTuition(Doctor[i].tuition);
+				i++;
+			}
+			}
+			else if(y==1) {
+				for(int i=0;i<x;) {
+					tea[i] =  Doctor[i];
+					tea[i].searchSalary(Doctor[i].salary,revenue);
+					tea[i].giveSalary(Doctor[i].salary,revenue);
+					i++;
+			}
+			}
+			else if(y==0) {
+				break a;
+			
+			}
 		}
+		catch(Exception e){
+			System.out.println("请输入正确数字");
+		}
+		}		
+	}
 		
-
-} 
-	public static void giveSalary(int salary,int tuition) throws MoneyException{
-		if(salary<0||tuition<0||salary<tuition) {
-			throw new MoneyException(salary,tuition);
+    public static void giveSalary(double d,double e) throws MoneyException{//判断工资和学费录入正确大小
+		if(d<0||e<0||d<e) {
+			throw new MoneyException(d,e);
 		}
 	}
-	public final static double giveRevenue(int salary,int tuition) {
-		revenue=salary-TeacherManagement.sanxianyijin+StudentManagement.buzhu-tuition;//实际税收
-		if(revenue<=5000.00) {                          //3%
+	public final static double giveRevenue(double salary,double tuition) {
+		tuition=tuition/6;                                                             //平均每月学费
+		revenue=TeacherManagement.sanxianyijin+StudentManagement.buzhu-tuition; //实际税收金额
+		if(revenue<=5000.00) {                           //3%
 			return revenue*0.03;
 		}
-		else if(revenue>5000.00 && revenue<=12000.00) { //10%
+		else if(revenue>5000.00 && revenue<=12000.00) {  //10%
 			return (revenue-5000)*0.1+1500;
 		}
 		else if(revenue>12000.00 && revenue<=25000.00) { //20%
