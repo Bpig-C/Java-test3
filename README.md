@@ -39,7 +39,7 @@ Java课程作业项目仓库
 **8.MoneyException类中：**  
 *(a)创建 MoneyException类为Exception类子类  
 (b)创建 warnMess方法用来返回错误提示  *  
-**9.在实验类中创建DoctoralCandidate的对象Doctor，创建TeacherManagement的对象tea，创建StudentManagement的对象Stu,通过接口回调**
+**9.在实验类中创建DoctoralCandidate的对象Doctor，创建TeacherManagement的对象tea，创建StudentManagement的对象Stu,通过接口回调对实现接口的方法进行调用**
 ## 核心方法  
 ***1.revenue税收计算方法***
 ```
@@ -70,224 +70,49 @@ public final static double giveRevenue(double salary,double tuition) {
 		return 0;
 	}
 ``` 
-***2.Teacher内打印编号方法（与姓名、工号、性别、课程类似）***
+***2.异常处理调用和返回方法***
 ```
-public int getNo(){
-	return num;	
-}
-void setNo(int number) {
-	this.num=number;	
-}
-``` 
-***3.Teacher toString方法***
-```
-public String toString() {
-	return num+name+sex+id+course;
-}
-``` 
-***4.Student构造方法***  
-```
-public Student(int number,String name,String sex,String id,int course){
-	setNo(number);
-	setStudentName(name);
-	setStudentId(id);
-	setCourses(course);
-	}
-``` 
-***5.Student内打印编号方法（与姓名、学号、性别、课程数方法类似）***
-```
-public int getNo(){
-	return num;	
-}
-void setNo(int number) {
-	this.num=number;	
-}
-``` 
-***6.课程数增减方法***
-```
-public void addCourses(int courseNumber) {
-	this.courseNumber = courseNumber+1;
-}
-public void reduceCourses(int courseNumber) {
-	this.courseNumber = courseNumber-1;
-}
-}
-```
-***7.Course构造方法***
-``` 
-public Course(int number,String name,String add,int stuNo){
-	setNo(number);
-	setName(name);
-	setAdd(add);
-	setStuNo(stuNo);
-	}
-```
-***8.学生数增减方法***
-``` 
-public void addStuNo(int stuNo) {
-	super.stuNo = stuNo+1;
-}
-public void reduceStuNo(int stuNo) {
-	super.stuNo = stuNo-1;
-}
-```
-***9.Test主方法***
-``` 
-public static void main(String[] args) {
-		
-		for(;;) {
-			printStudentAll();
-			Scanner reader = new Scanner(System.in);
-			int x =reader.nextInt();
-			stuNo=x;//记录学生编号
-			judgeStu(x);//选择学生
-			printAll();
+ public static void giveSalary(double d,double e) throws MoneyException{
+		if(d<0||e<0||d<e) {
+			throw new MoneyException(d,e);
 		}
-	
-		
 	}
-```
-***10.学生选择方法（根据主类中获得数据选择学生）***
+public MoneyException(double d,double e) {
+		message = "工资"+d+"是负数或少于学费，或学费"+e+"是负数，";
+	}
+public String warnMess() {
+		return message;
+	}
 ``` 
-public static void judgeStu(int No) {
-		Scanner reader = new Scanner(System.in);
-		printStudent(stuNo);
-		System.out.println("1.选课\n2.退课");
-		int y =reader.nextInt();
-		if(No==1)
-			judgeChoose(y);
-		if(No==2)
-			judgeChoose(y);
-		if(No==3)
-			judgeChoose(y);
-		if(No==4)
-			judgeChoose(y);
-	}
+***3.学费缴费方法***
 ```
-***11.选退课判断方法***
+public void payTuition(double tuition) {
+		account=account-tuition;
+		System.out.println("操作成功！");
+		System.out.println("账户余额："+account);
+	}
 ``` 
-public static void judgeChoose(int No) {//确认退课选课，选择课程编号
-		Scanner reader = new Scanner(System.in);
-		printCourseAll();
-		int z =reader.nextInt();
-		courseNo=z;//记录课程编号
-		if(No==1){//选课
-			courseChoose(z);
-		    addWork(stuNo,courseNo);
-		    }
-		if(No==2){//退课
-			courseChoose(z);
-		    reduceWork(stuNo,courseNo);
-		    }
-	}
+***4.学费查询方法***  
 ```
-***12.课程选择方法***
+public void searchTuition(double tuition) {
+		tuition=tuition-buzhu;
+		System.out.println("本学期学费："+tuition);
+		System.out.println("本学年学费："+2*tuition);
+	}
 ``` 
-public static void courseChoose(int No) {//选择课程并打印老师
-		Scanner reader = new Scanner(System.in);
-		if(No==1) {
-			printTeacher(1);
-		    }
-		if(No==2) {
-			printTeacher(2);
-			}
-		//else System.out.println("没有该课程信息，请输入1~2");
-		
-	}
+***5.工资查询方法***
 ```
-***13.增加操作方法***
+public void searchSalary(double salary,double revenue) {                       //必须在发放工资以后才能显示
+		System.out.println("工资："+(salary-revenue));
+		System.out.println("年实际工资："+12*(salary-revenue));
+	}
 ``` 
-public static void addWork(int stuNo,int courseNo) {
-		if (stuNo==1 && courseNo==1) {
-		cou0.addStuNo(cou0.getStuNo());
-		stu0.addCourses(stu0.getCourses());
-		}
-		else if (stuNo==1 && courseNo==2) {
-		cou1.addStuNo(cou1.getStuNo());
-		stu0.addCourses(stu0.getCourses());
-		}
-		else if (stuNo==2 && courseNo==1) {
-		cou0.addStuNo(cou0.getStuNo());
-		stu1.addCourses(stu1.getCourses());
-		}
-		else if (stuNo==2 && courseNo==2) {
-			cou1.addStuNo(cou1.getStuNo());
-			stu1.addCourses(stu1.getCourses());
-			}
-		else if (stuNo==3 && courseNo==1) {
-			cou0.addStuNo(cou0.getStuNo());
-			stu2.addCourses(stu2.getCourses());
-			}
-		else if (stuNo==3 && courseNo==2) {
-			cou1.addStuNo(cou1.getStuNo());
-			stu2.addCourses(stu2.getCourses());
-			}
-		else if (stuNo==4 && courseNo==1) {
-			cou0.addStuNo(cou0.getStuNo());
-			stu3.addCourses(stu3.getCourses());
-			}
-		else if (stuNo==4 && courseNo==2) {
-			cou1.addStuNo(cou1.getStuNo());
-			stu3.addCourses(stu3.getCourses());
-			}
-	}
+***6.工资发放方法***
 ```
-***14.删减操作方法***
-``` 
-public static void reduceWork(int stuNo,int courseNo) {
-		if (stuNo==1 && courseNo==1) {
-			cou0.reduceStuNo(cou0.getStuNo());
-			stu0.reduceCourses(stu0.getCourses());
-			}
-		else if (stuNo==1 && courseNo==2) {
-			cou1.reduceStuNo(cou1.getStuNo());
-			stu0.reduceCourses(stu0.getCourses());
-			}
-		else if (stuNo==2 && courseNo==1) {
-			cou0.reduceStuNo(cou0.getStuNo());
-			stu1.reduceCourses(stu1.getCourses());
-			}
-		else if (stuNo==2 && courseNo==2) {
-				cou1.reduceStuNo(cou1.getStuNo());
-				stu1.reduceCourses(stu1.getCourses());
-				}
-		else if (stuNo==3 && courseNo==1) {
-				cou0.reduceStuNo(cou0.getStuNo());
-				stu2.reduceCourses(stu2.getCourses());
-				}
-		else if (stuNo==3 && courseNo==2) {
-				cou1.reduceStuNo(cou1.getStuNo());
-				stu2.reduceCourses(stu2.getCourses());
-				}
-		else if (stuNo==4 && courseNo==1) {
-				cou0.reduceStuNo(cou0.getStuNo());
-				stu3.reduceCourses(stu3.getCourses());
-				}
-		else if (stuNo==4 && courseNo==2) {
-				cou1.reduceStuNo(cou1.getStuNo());
-				stu3.reduceCourses(stu3.getCourses());
-				}
-		
-	}
-```
-***15.打印信息方法（打印教师、学生、课程信息与本方法类似）***
-```
-public static void printAll() {
-		System.out.println("<学生选课系统>");
-		System.out.println("<学生信息>");
-		System.out.println("编号   姓名   学号   课数");
-		System.out.println("  "+stu0.getNo()+"  "+stu0.getStudentName()+" "+stu0.getStudentId()+"   "+stu0.getCourses());
-		System.out.println("  "+stu1.getNo()+"  "+stu1.getStudentName()+" "+stu1.getStudentId()+"   "+stu1.getCourses());
-		System.out.println("  "+stu2.getNo()+"  "+stu2.getStudentName()+" "+stu2.getStudentId()+"   "+stu2.getCourses());
-		System.out.println("  "+stu3.getNo()+"  "+stu3.getStudentName()+" "+stu3.getStudentId()+"   "+stu3.getCourses());
-		System.out.println("<教师信息>");
-		System.out.println("编号   姓名   学号   授课");
-		System.out.println("  "+tea0.getNo()+"  "+tea0.getTeacherName()+" "+tea0.getTeacherId()+" "+tea0.getTeaCourse());
-		System.out.println("  "+tea1.getNo()+"  "+tea1.getTeacherName()+" "+tea1.getTeacherId()+" "+tea1.getTeaCourse());
-		System.out.println("<课程信息>");
-		System.out.println("编号   课程名称   教学地点   选课人数");
-		System.out.println("  "+cou0.getNo()+"      "+cou0.getName()+"     "+cou0.getAdd()+"           "+cou0.getStuNo());
-		System.out.println("  "+cou1.getNo()+"      "+cou1.getName()+"     "+cou1.getAdd()+"           "+cou1.getStuNo());
+public void giveSalary(double salary,double revenue) {
+		account=account+(salary-revenue);
+		System.out.println("操作成功！");
+		System.out.println("账户余额："+account);
 	}
 ```
 ## 系统运行截图  
