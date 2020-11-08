@@ -19,43 +19,56 @@ Java课程作业项目仓库
 4.实例化研究生类时，可采用运行时通过main方法的参数args一次性赋值，也可采用Scanner类实现运行时交互式输入。  
 5.根据输入情况，要在程序中做异常处理。   
 ## 实验过程
-**1.首先创建两个package：Information 和 Run。  
-2.在包中创建两个接口，分别设定博士研究生作为学生和助教的两类行为标准。
-3.在Information 包中实例化四个类：Teacher、Student、Course 和 People，并在Run 包中实例化一个类：Test。  
-3.People类中：**  
-*(a)作为一个父类，主要为其他三个同包子类提供变量。（最重要两个变量：stuNo、courseNumber,用于计数判断）  
-(b)提供默认构造方法和toString方法。*    
-**4.Teacher类中：**  
-*(a)在Teacher类中创建两个 private属性：teacherName和 teacherId分别表示老师姓名和老师工号，并从父类中继承编号（num）、性别（sex）。  
-(b)创建构造方法，调用本类的方法实现信息（编号、姓名、性别）的打印。  
-(c)在打印授课名称时，运用 super语法调用People类中course变量。*     
-**5.Student类中：**  
-*(a)在Student类中创建两个 private属性：StudentName和 StudentId分别表示学生姓名和学生学号，并从父类中继承编号（num）、性别（sex）。  
-(b)创建构造方法，调用本类的方法实现信息（编号、姓名、性别、学号、课程数）的打印。  
-(c)在打印授课名称时，运用 super语法调用People类中courseNumber变量。  
-(d)创建一组方法（课程数加减方法）：addCourses和 reduceCourses，来实现对课程数修改。*      
-**6.Course中：**  
-*(a)在Course类中创建三个private属性：num、name和 add分别表示编、课程名称和上课地址。  
-(b)创建构造方法，调用本类的方法实现信息（编号、姓名、性别、学号、课程数）的打印。  
-(c)在打印授课名称时，运用 super语法调用People类中courseNumber变量。  
-(d)创建一组方法（学生数加减方法）：addStuNo和 reduceStuNo，来实现对学生数修改。*    
-**7.Test_courseChooseSystem中：**  
-*(a)在本类中，调用 Teacher、Student、Course类，以及 java.util.Scanner用来实现控制台输入信息。  
-(b)创建三个方法：judgeStu、judgeChoose、courseChoose依次对输入数据进行判断。  
-(c)创建两个个方法：addWork、reduceWork根据对变量 stuNo、courseNo的同时判断，来实现对不同同学选择不同的老师计数。  
-(d)创建一组打印方法：printAll、printTeacher、printTeacherAll、printStudent、printStudentAll、printCourse、printCourseAll方便主方法进行信息的打印。  
-(e)最后在主方法中建立一个循环（保持选课系统持续存在，方便多次选课），接受第一次数据输入，调用judge（）方法开始进行选课。选课完毕，调用 printAll（）方法打印信息.*   
-## 流程图  
-
+**1.首先创建一个package：interfaceApplication。  
+2.在包中创建两个接口StudentManagement和TeacherManagement，分别设定博士研究生作为学生和助教的两类行为标准。 
+3.并在包中实例化一个类DoctoralCandidate来实现上述两个接口。实例化一个MoneyException异常类来进行对收税金的判断。实例化主类Test_JavaProgram对用户输入进行存储和操作。  
+4.StudentManagement类中：**  
+*（a）定义常量buzhu
+（b）设计两个方法：缴纳学费和查询学费  *
+**5.TeacherManagement类中：** 
+*(a)定义常量sanxianyijin
+（b）设计两个方法：查询工资和发放工资  *  
+**6.DoctoralCandidate类中：**  
+*(a)定义基本信息变量
+（b）实现两个接口四个方法*    
+**7.Test_JavaProgram类中：**  
+*(a)首先定义全局变量和录入数组
+(b)设计三个循环：第一个循环依次录入个人信息，第二个循环判断录入工资和学费是否正确，第三个循环执行方法操作。
+(c)设计税收算法方法  
+(d)设计异常抛出方法  *
+**8.MoneyException类中：**  
+*(a)创建 MoneyException类为Exception类子类  
+(b)创建 warnMess方法用来返回错误提示  *  
+**9.在实验类中创建DoctoralCandidate的对象Doctor，创建TeacherManagement的对象tea，创建StudentManagement的对象Stu,通过接口回调**
 ## 核心方法  
-***1.Teacher构造方法***
+***1.revenue税收计算方法***
 ```
-public Teacher(int number,String name,String id,String course){
-	setNo(number);
-	setTeacherName(name);
-	setTeacherId(id);
-	setTeaCourse(course);
-}
+public final static double giveRevenue(double salary,double tuition) {
+		tuition=tuition/6;                                                             //平均每月学费
+		revenue=TeacherManagement.sanxianyijin+StudentManagement.buzhu-tuition; //实际税收金额
+		if(revenue<=5000.00) {                           //3%
+			return revenue*0.03;
+		}
+		else if(revenue>5000.00 && revenue<=12000.00) {  //10%
+			return (revenue-5000)*0.1+1500;
+		}
+		else if(revenue>12000.00 && revenue<=25000.00) { //20%
+			return (revenue-12000)*0.2+2200;
+		}
+		else if(revenue>25000.00 && revenue<=35000.00) { //25%
+			return (revenue-25000)*0.25+4800;
+		}
+		else if(revenue>35000.00 && revenue<=55000.00) { //30%
+			return (revenue-35000)*0.3+7300;
+		}
+		else if(revenue>55000.00 && revenue<=80000.00) { //35%
+			return (revenue-55000)*0.35+13300;
+		}
+		else if(revenue>80000.00) {                      //45%
+			return (revenue-80000)*0.45+22050;
+		}
+		return 0;
+	}
 ``` 
 ***2.Teacher内打印编号方法（与姓名、工号、性别、课程类似）***
 ```
