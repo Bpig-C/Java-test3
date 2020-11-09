@@ -35,6 +35,7 @@ public class DoctoralCandidate implements StudentManagement,TeacherManagement {
 	}
 	
 	public void searchSalary(double salary,double revenue) {                       //必须在发放工资以后才能显示
+		System.out.println("税收："+revenue);
 		System.out.println("工资："+(salary-revenue));
 		System.out.println("年实际工资："+12*(salary-revenue));
 	}
@@ -43,6 +44,7 @@ public class DoctoralCandidate implements StudentManagement,TeacherManagement {
 		account=account+(salary-revenue);
 		System.out.println("操作成功！");
 		System.out.println("账户余额："+account);
+		
 	}
 
 }
